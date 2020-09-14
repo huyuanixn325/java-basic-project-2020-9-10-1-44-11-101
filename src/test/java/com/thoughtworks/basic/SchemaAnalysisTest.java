@@ -14,4 +14,15 @@ public class SchemaAnalysisTest {
         //then
         Assert.assertEquals(0,formatSchema.length);
     }
+
+    @Test
+    public void should_return_3_array_when_given_a_schema(){
+        //when
+        String inputSchema = "-l true -p 8080";
+        SchemaAnalysis schemaAnalysis = new SchemaAnalysis();
+        //given
+        String[] formatSchema = schemaAnalysis.formatShemaInput(inputSchema);
+        //then
+        Assert.assertEquals(3,formatSchema.length);
+    }
 }
