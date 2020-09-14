@@ -3,6 +3,7 @@ package com.thoughtworks.basic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Map;
 
 public class SchemaAnalysisTest {
@@ -29,15 +30,17 @@ public class SchemaAnalysisTest {
     }
 
     @Test
-    public void should_return_a_map_when_given_a_schema(){
+    public void should_return_map_size_is_when_given_a_schema(){
         //when
         String inputSchema = "-l true -p 8080";
         SchemaAnalysis schemaAnalysis = new SchemaAnalysis();
         //given
         schemaAnalysis.initSchema();
         String[] formatSchema = schemaAnalysis.formatShemaInput(inputSchema);
-        Map<String,Object> objectMap = schemaAnalysis.analysisSchema(formatSchema);
+        List schemaRules = schemaAnalysis.analysisSchema(formatSchema);
         //then
-        Assert.assertEquals(2,objectMap.size());
+        Assert.assertEquals(2,schemaRules.size());
     }
+
+
 }
