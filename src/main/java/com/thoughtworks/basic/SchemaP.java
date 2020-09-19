@@ -22,4 +22,11 @@ public class SchemaP implements Schema{
     public String getDefaultValue() {
         return "8080";
     }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+    public String getKey() {
+        return key;
+    }
 }
