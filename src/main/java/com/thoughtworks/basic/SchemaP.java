@@ -12,9 +12,12 @@ public class SchemaP implements Schema{
         return pattern.matcher(this.value).matches() && Integer.valueOf(this.value) <= Integer.MAX_VALUE;
     }
 
+    public SchemaP() {
+        this.key=KeyContant.SCHEMA_P;
+    }
+
     @Override
     public void initValue() {
-        this.key=KeyContant.SCHEMA_P;
         this.value = "8080";
     }
 
@@ -28,5 +31,9 @@ public class SchemaP implements Schema{
     }
     public String getKey() {
         return key;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

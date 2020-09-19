@@ -8,9 +8,12 @@ public class SchemaD implements Schema {
         return true;
     }
 
+    public SchemaD() {
+        this.key=KeyContant.SCHEMA_D;
+    }
+
     @Override
     public void initValue() {
-        this.key=KeyContant.SCHEMA_D;
         this.value="";
     }
 
@@ -25,5 +28,9 @@ public class SchemaD implements Schema {
 
     public String getKey() {
         return key;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

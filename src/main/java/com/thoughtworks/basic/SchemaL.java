@@ -4,9 +4,13 @@ public class SchemaL implements Schema {
     private String key;
     private String value;
 
+    public SchemaL() {
+        this.key = KeyContant.SCHEMA_L;
+
+    }
+
     @Override
     public void initValue() {
-        this.key = KeyContant.SCHEMA_L;
         this.value="false";
     }
 
@@ -27,5 +31,9 @@ public class SchemaL implements Schema {
     }
     public String getKey() {
         return key;
+    }
+
+    public String getValue() {
+        return value;
     }
 }

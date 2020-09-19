@@ -2,64 +2,45 @@ package com.thoughtworks.basic;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
 
 public class SchemaAnalysis {
-    List<String> schema = new ArrayList<>();
-    Pattern pattern =Pattern.compile("[0-9]*");
-    public void initSchema() {
-        schema.add("l");
-        schema.add("p");
-        schema.add("d");
+    private Args args = new Args();
+    private Arg arg = new Arg();
+
+    public List<Schema> schemaCheck(String inputParam) {
+        List<String> inputParams = splitInput(inputParam);
+        List<Schema> schemas = args.args(inputParams);
+        arg.arg(schemas);
+        inintNotInputValue(schemas);
+        return schemas;
     }
 
-    public String[] formatShemaInput(String inputSchema) {
-        String[] formatSchema = {};
-        if (null == inputSchema || "" == inputSchema) return formatSchema;
-        else formatSchema = inputSchema.trim().split("-");
-        return formatSchema;
-    }
-
-    public List<SchemaRule> analysisSchema(String[] formatSchema) {
-        List<SchemaRule> schemaRules = new ArrayList<>();
-        for (int i=1;i< formatSchema.length;i++) {
-            String schema = formatSchema[i];
-            String[] strings = schema.trim().split(" ");
-            if (strings.length > 0 && isInvalidFlag(strings[0]) && strings.length <= 2) {
-                String flag = strings[0];
-                if (strings.length == 2) {
-                    SchemaRule schemaRule = getSchemaRule(flag, strings[1]);
-                    schemaRules.add(schemaRule);
-                }
-            } else {
-                try {
-                    throw new Exception("Illegal Input");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+    private void inintNotInputValue(List<Schema> schemas) {
+        for (Schema schema : schemas) {
+            if (schema.getKey().equals(KeyContant.SCHEMA_L)) {
+                SchemaL schemaL = (SchemaL) schema;
+                schemaL.setValue(schemaL.getValue().isEmpty() ? schemaL.getDefaultValue() : schemaL.getValue());
+            }
+            if (schema .getClass().isAssignableFrom(SchemaP.class)) {
+                SchemaP schemaP = (SchemaP) schema;
+                schemaP.setValue(schemaP.getValue().isEmpty() ? schemaP.getDefaultValue() : schemaP.getValue());
+            }
+            if (schema .getClass().isAssignableFrom(SchemaD.class)) {
+                SchemaD schemaD = (SchemaD) schema;
+                schemaD.setValue(schemaD.getValue().isEmpty() ? schemaD.getDefaultValue() : schemaD.getValue());
             }
         }
-        return schemaRules;
     }
 
-    private boolean isInvalidFlag(String str) {
-        if (str.length() == 1 && str.charAt(0) >= 'a' && str.charAt(0) <= 'z') {
-            if (schema.contains(str)) {
-                return true;
-            }
+    private List<String> splitInput(String input) {
+        if (null == input || input.length() <= 0) {
+            return new ArrayList<String>();
         }
-        return false;
-    }
-
-    private SchemaRule getSchemaRule(String flag, String value) {
-        if (String.valueOf(true).equals(value) || String.valueOf(false).equals(value)) {
-            return new SchemaRule(flag, Boolean.valueOf(value));
-        }
-        if (pattern.matcher(value).matches()) {
-            return new SchemaRule(flag, Integer.valueOf(value));
-        }
-        return new SchemaRule(flag, value);
+        String[] params = input.trim().split(" ");
+        return Arrays.asList(params);
     }
 }
