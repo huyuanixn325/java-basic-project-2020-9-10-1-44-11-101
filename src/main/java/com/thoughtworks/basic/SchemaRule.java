@@ -5,6 +5,8 @@ public class SchemaRule {
     private Object value;
 
     public SchemaRule(String flag, Object valueOf) {
+        this.flag = flag;
+        this.value = valueOf;
     }
 
     public String getFlag() {
