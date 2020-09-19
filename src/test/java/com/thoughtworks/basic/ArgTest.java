@@ -29,6 +29,30 @@ public class ArgTest {
             assertTrue(e instanceof SchemaException);
         }
     }
+
+    @Test
+    public void l_schema_repeat_error_test() {
+        //given
+        Arg arg = new Arg();
+        List<Schema> schemas = new ArrayList<Schema>();
+        SchemaL schemaL1 = new SchemaL();
+        schemaL1.initValue();
+        schemaL1.setValue("true");
+        SchemaL schemaL2 = new SchemaL();
+        schemaL2.initValue();
+        schemaL2.setValue("false");
+        schemas.add(schemaL1);
+        schemas.add(schemaL2);
+        //when
+        try {
+            arg.arg(schemas);
+            //then
+            fail(KeyContant.SCHEMA_L + "schema重复");
+        } catch (Exception e) {
+            //then
+            assertTrue(e instanceof SchemaException);
+        }
+    }
     }
 
 
